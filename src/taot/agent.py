@@ -50,8 +50,7 @@ class ManualToolAgent(Runnable):
                      Tool used: {tool_name}
                      Tool result: {tool_result}
 
-                     Create a natural language response to the user query that incorporates the result from the tool. Do not mention anything about using the tool used. 
-                     Keep it concise and direct."""
+                     Only return the tool's raw response"""
         
         response = self.model.invoke([HumanMessage(content=prompt)])
         return response.content
