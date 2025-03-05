@@ -41,19 +41,19 @@ class ManualToolAgent(Runnable):
                 
         return converted_messages
     
-    def format_tool_result(self, tool_name: str, tool_result: str, user_query: str) -> str:
-        """
-        Format tool result using LLM to create natural language response.
-        """
-        prompt = f"""Given the following:
-                     User query: {user_query}
-                     Tool used: {tool_name}
-                     Tool result: {tool_result}
+    # def format_tool_result(self, tool_name: str, tool_result: str, user_query: str) -> str:
+    #     """
+    #     Format tool result using LLM to create natural language response.
+    #     """
+    #     prompt = f"""Given the following:
+    #                  User query: {user_query}
+    #                  Tool used: {tool_name}
+    #                  Tool result: {tool_result}
 
-                     Only return the tool's raw response"""
+    #                  Only return the tool's raw response"""
         
-        response = self.model.invoke([HumanMessage(content=prompt)])
-        return response.content
+    #     response = self.model.invoke([HumanMessage(content=prompt)])
+    #     return response.content
     
     def invoke(self, inputs: dict) -> dict:
         """
@@ -100,7 +100,8 @@ class ManualToolAgent(Runnable):
                 if tool_call.tool in tool_dict:
                     raw_result = tool_dict[tool_call.tool].invoke(tool_call.args)
                     # Format the result using LLM
-                    result = self.format_tool_result(tool_call.tool, raw_result, user_query)
+                    # result = self.format_tool_result(tool_call.tool, raw_result, user_query)
+                    result = raw_result
                 else:
                     result = "Error: Unknown tool"
             except Exception as e:
